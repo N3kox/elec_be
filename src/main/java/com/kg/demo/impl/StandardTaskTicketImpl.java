@@ -4,6 +4,8 @@ import com.kg.demo.bean.StandardTaskTicketEntity;
 import com.kg.demo.repo.StandardTaskTicketRepo;
 import com.kg.demo.service.StandardTaskTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,5 +23,10 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
     @Override
     public StandardTaskTicketEntity selectTaskTicketByCode(String code) {
         return standardTaskTicketRepo.findFirstByCode(code);
+    }
+
+    @Override
+    public Page<StandardTaskTicketEntity> selectTaskTicketByStatusTop(boolean status) {
+        return standardTaskTicketRepo.findByElecStop(!status ? "否" : "是", PageRequest.of(0, 5));
     }
 }

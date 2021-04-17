@@ -14,8 +14,10 @@ public class CompanyEntity {
     private Long id;
     @Property("所属地市")
     private String name;
-    @Relationship(type = "所属地市", direction = Relationship.Direction.INCOMING)
-    private Set<DeviceEntity> deviceEntities = new HashSet<>();
+
+//    @Relationship(type = "所属地市", direction = Relationship.Direction.INCOMING)
+//    private Set<DeviceEntity> deviceEntities = new HashSet<>();
+
     @Relationship(type = "就职", direction = Relationship.Direction.INCOMING)
     private Set<StaffEntity> staffEntities = new HashSet<>();
 
@@ -35,13 +37,13 @@ public class CompanyEntity {
         this.name = name;
     }
 
-    public Set<DeviceEntity> getDeviceEntities() {
-        return deviceEntities;
-    }
-
-    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
-        this.deviceEntities = deviceEntities;
-    }
+//    public Set<DeviceEntity> getDeviceEntities() {
+//        return deviceEntities;
+//    }
+//
+//    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
+//        this.deviceEntities = deviceEntities;
+//    }
 
     public Set<StaffEntity> getStaffEntities() {
         return staffEntities;

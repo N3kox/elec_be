@@ -1,23 +1,38 @@
 package com.kg.demo.bean;
 
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Property;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.springframework.data.neo4j.core.schema.Relationship.Direction.INCOMING;
 import static org.springframework.data.neo4j.core.schema.Relationship.Direction.OUTGOING;
 
 @Node("标准工作任务单")
 public class StandardTaskTicketEntity {
     @Id
+    @GeneratedValue
     private Long missionTicketId;
 
     @Property("任务概述")
     private String descSummary;
+
+    public StandardTaskTicketEntity(Long missionTicketId, String descSummary, String descDetail, String elecStopRange, String location, String endingState, String belongingLocationName, String elecStop, String relatedToPlan, String eliminateId, String preparedTime, String preparedDepartment, String code, String timeToStart, String timeToEnd) {
+        this.missionTicketId = missionTicketId;
+        this.descSummary = descSummary;
+        this.descDetail = descDetail;
+        this.elecStopRange = elecStopRange;
+        this.location = location;
+        this.endingState = endingState;
+        this.belongingLocationName = belongingLocationName;
+        this.elecStop = elecStop;
+        this.relatedToPlan = relatedToPlan;
+        this.eliminateId = eliminateId;
+        this.preparedTime = preparedTime;
+        this.preparedDepartment = preparedDepartment;
+        this.code = code;
+        this.timeToStart = timeToStart;
+        this.timeToEnd = timeToEnd;
+    }
 
     @Property("任务详述")
     private String descDetail;
@@ -64,8 +79,21 @@ public class StandardTaskTicketEntity {
     @Relationship(type = "任务单编制人", direction = OUTGOING)
     private Set<StaffEntity> missionTicketFounder = new HashSet<>();
 
+    public Set<StaffEntity> getMissionTicketFounder() {
+        return missionTicketFounder;
+    }
 
+    public void setMissionTicketFounder(Set<StaffEntity> missionTicketFounder) {
+        this.missionTicketFounder = missionTicketFounder;
+    }
 
+    public Set<RouteLocationEntity> getRouteLocation() {
+        return routeLocation;
+    }
+
+    public void setRouteLocation(Set<RouteLocationEntity> routeLocation) {
+        this.routeLocation = routeLocation;
+    }
 
     public Long getMissionTicketId() {
         return missionTicketId;

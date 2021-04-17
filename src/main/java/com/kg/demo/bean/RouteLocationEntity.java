@@ -16,4 +16,44 @@ public class RouteLocationEntity {
     private String voltageLevel;
     @Property("站线名称")
     private String nameAno;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTranformerID() {
+        return tranformerID;
+    }
+
+    public void setTranformerID(String tranformerID) {
+        this.tranformerID = tranformerID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVoltageLevel() {
+        return voltageLevel;
+    }
+
+    public void setVoltageLevel(String voltageLevel) {
+        this.voltageLevel = voltageLevel;
+    }
+
+    public String getNameAno() {
+        return nameAno;
+    }
+
+    public void setNameAno(String nameAno) {
+        this.nameAno = nameAno;
+    }
 }

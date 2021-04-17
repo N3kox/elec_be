@@ -14,10 +14,10 @@ public class StaffEntity {
     private Long id;
     @Property("姓名")
     private String name;
-    @Relationship(type = "设备主人", direction = Relationship.Direction.INCOMING)
-    private Set<DeviceEntity> deviceEntities = new HashSet<>();
-    @Relationship(type = "就职", direction = Relationship.Direction.OUTGOING)
-    private Set<CompanyEntity> companyEntities = new HashSet<>();
+//    @Relationship(type = "设备主人", direction = Relationship.Direction.INCOMING)
+//    private Set<DeviceEntity> deviceEntities = new HashSet<>();
+//    @Relationship(type = "就职", direction = Relationship.Direction.OUTGOING)
+//    private Set<CompanyEntity> companyEntities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -35,21 +35,21 @@ public class StaffEntity {
         this.name = name;
     }
 
-    public Set<DeviceEntity> getDeviceEntities() {
-        return deviceEntities;
-    }
-
-    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
-        this.deviceEntities = deviceEntities;
-    }
-
-    public Set<CompanyEntity> getCompanyEntities() {
-        return companyEntities;
-    }
-
-    public void setCompanyEntities(Set<CompanyEntity> companyEntities) {
-        this.companyEntities = companyEntities;
-    }
+//    public Set<DeviceEntity> getDeviceEntities() {
+//        return deviceEntities;
+//    }
+//
+//    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
+//        this.deviceEntities = deviceEntities;
+//    }
+//
+//    public Set<CompanyEntity> getCompanyEntities() {
+//        return companyEntities;
+//    }
+//
+//    public void setCompanyEntities(Set<CompanyEntity> companyEntities) {
+//        this.companyEntities = companyEntities;
+//    }
 //    @Relationship(type = "工单编制人", direction = Relationship.Direction.INCOMING)
 //    private Set<WorkOrderEntity> workOrderEntities = new HashSet<>();
 //    @Relationship(type = "任务单编制人", direction = Relationship.Direction.INCOMING)

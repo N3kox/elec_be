@@ -19,6 +19,7 @@ public class DeviceTypeEntity {
 
     @Relationship(type = "设备类型", direction = Relationship.Direction.INCOMING)
     private Set<DeviceEntity> devices = new HashSet<>();
+
     public Set<DeviceEntity> getDevices() {
         return devices;
     }

@@ -16,8 +16,8 @@ public class ClassEntity {
     private long id;
     @Property("name")
     private String className;
-    @Relationship(type = "设备", direction = INCOMING)
-    private Set<DeviceEntity> devices = new HashSet<>();
+//    @Relationship(type = "设备", direction = INCOMING)
+//    private Set<DeviceEntity> devices = new HashSet<>();
 
     public long getId() {
         return id;
@@ -35,11 +35,11 @@ public class ClassEntity {
         this.className = className;
     }
 
-    public Set<DeviceEntity> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(Set<DeviceEntity> devices) {
-        this.devices = devices;
-    }
+//    public Set<DeviceEntity> getDevices() {
+//        return devices;
+//    }
+//
+//    public void setDevices(Set<DeviceEntity> devices) {
+//        this.devices = devices;
+//    }
 }
