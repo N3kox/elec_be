@@ -2,11 +2,12 @@ package com.kg.demo.controller;
 
 import com.kg.demo.bean.StandardTaskTicketEntity;
 import com.kg.demo.impl.StandardTaskTicketImpl;
-import com.kg.demo.utils.PythonInvoker;
+import com.kg.demo.utils.JsonHelper;
 import org.springframework.web.bind.annotation.*;
+import com.alibaba.fastjson.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static com.kg.demo.utils.Lowercase.lowerCase;
 
@@ -43,6 +44,14 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
                 return selectTaskTicketByStatusTop(!stop.equals("false")).getContent();
         }
         return null;
+    }
+
+    @PostMapping("/update/test")
+    @ResponseBody
+    public boolean updateGetter(@RequestBody JSONObject data){
+        Map<String, Object> userMap = JsonHelper.jsonObjectParser(data);
+        System.out.println("map对象:" + userMap.toString());
+        return true;
     }
 
     // use this when you've got python3 environment rather than conda environment
