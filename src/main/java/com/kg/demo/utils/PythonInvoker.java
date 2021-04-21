@@ -3,8 +3,10 @@ package com.kg.demo.utils;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.HashMap;
 
-public class PythonInvoker {
+public class PythonInvoker implements Serializable {
     /**
      * @throws IOException
      * @throws InterruptedException
@@ -22,4 +24,5 @@ public class PythonInvoker {
         process.waitFor();
         System.out.println(str);
     }
+
 }

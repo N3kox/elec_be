@@ -1,5 +1,6 @@
 package com.kg.demo.bean;
 
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
@@ -7,7 +8,8 @@ import org.springframework.data.neo4j.core.schema.Property;
 @Node("工作票")
 public class WorkTicketEntity {
     @Id
-    private Long id;
+    @GeneratedValue
+    private Long gid;
     @Property("票号")
     private String ticketNumber;
     @Property("票种类")

@@ -1,9 +1,6 @@
 package com.kg.demo.bean;
 
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Property;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +8,8 @@ import java.util.Set;
 @Node("设备类型")
 public class DeviceTypeEntity {
     @Id
-    private Long id;
+    @GeneratedValue
+    private Long gid;
     @Property("name")
     private String deviceTypeName;
     @Property("类型编号")
@@ -28,12 +26,13 @@ public class DeviceTypeEntity {
         this.devices = devices;
     }
 
-    public Long getId() {
-        return id;
+
+    public Long getGid() {
+        return gid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGid(Long gid) {
+        this.gid = gid;
     }
 
     public String getDeviceTypeName() {

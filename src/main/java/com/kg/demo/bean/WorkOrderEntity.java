@@ -1,9 +1,6 @@
 package com.kg.demo.bean;
 
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Property;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +8,8 @@ import java.util.Set;
 @Node
 public class WorkOrderEntity {
     @Id
-    private Long id;
+    @GeneratedValue
+    private Long gid;
     @Property("完成时间")
     private String finishDate;
     @Property("所属大馈线名称")

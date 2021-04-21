@@ -11,13 +11,13 @@ import static org.springframework.data.neo4j.core.schema.Relationship.Direction.
 public class StandardTaskTicketEntity {
     @Id
     @GeneratedValue
-    private Long missionTicketId;
+    private Long gid;
 
     @Property("任务概述")
     private String descSummary;
 
-    public StandardTaskTicketEntity(Long missionTicketId, String descSummary, String descDetail, String elecStopRange, String location, String endingState, String belongingLocationName, String elecStop, String relatedToPlan, String eliminateId, String preparedTime, String preparedDepartment, String code, String timeToStart, String timeToEnd) {
-        this.missionTicketId = missionTicketId;
+    public StandardTaskTicketEntity(Long gid, String descSummary, String descDetail, String elecStopRange, String location, String endingState, String belongingLocationName, String elecStop, String relatedToPlan, String eliminateId, String preparedTime, String preparedDepartment, String code, String timeToStart, String timeToEnd) {
+        this.gid = gid;
         this.descSummary = descSummary;
         this.descDetail = descDetail;
         this.elecStopRange = elecStopRange;
@@ -95,12 +95,12 @@ public class StandardTaskTicketEntity {
         this.routeLocation = routeLocation;
     }
 
-    public Long getMissionTicketId() {
-        return missionTicketId;
+    public Long getGid() {
+        return gid;
     }
 
-    public void setMissionTicketId(Long missionTicketId) {
-        this.missionTicketId = missionTicketId;
+    public void setGid(Long gid) {
+        this.gid = gid;
     }
 
     public String getDescSummary() {
