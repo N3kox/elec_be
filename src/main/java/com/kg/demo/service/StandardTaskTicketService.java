@@ -9,4 +9,6 @@ public interface StandardTaskTicketService {
     List<StandardTaskTicketEntity> selectTaskTicketByStatus(boolean status);
     StandardTaskTicketEntity selectTaskTicketByCode(String code);
     Page<StandardTaskTicketEntity> selectTaskTicketByStatusTop(boolean status);
+    StandardTaskTicketEntity selectTaskTicketByGid(Long id);
+    StandardTaskTicketEntity updateTaskTicketById(Long id, StandardTaskTicketEntity ticket);
 }

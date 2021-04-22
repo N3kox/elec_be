@@ -1,6 +1,6 @@
 package com.kg.demo.bean;
 
-import org.springframework.data.neo4j.core.schema.*;
+import org.springframework.data.neo4j.core.schema.* ;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -29,4 +29,15 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
     public Page<StandardTaskTicketEntity> selectTaskTicketByStatusTop(boolean status) {
         return standardTaskTicketRepo.findByElecStop(!status ? "否" : "是", PageRequest.of(0, 5));
     }
+
+    @Override
+    public StandardTaskTicketEntity updateTaskTicketById(Long id, StandardTaskTicketEntity ticket) {
+        ticket.setGid(id);
+        return standardTaskTicketRepo.save(ticket);
+    }
+
+    @Override
+    public StandardTaskTicketEntity selectTaskTicketByGid(Long id) {
+        return standardTaskTicketRepo.findByGid(id);
+    }
 }

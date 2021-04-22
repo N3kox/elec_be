@@ -6,6 +6,11 @@ import com.kg.demo.utils.JsonHelper;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONObject;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +53,37 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
 
     @PostMapping("/update/test")
     @ResponseBody
-    public boolean updateGetter(@RequestBody JSONObject data){
+    public boolean updateTest1(@RequestBody JSONObject data){
         Map<String, Object> userMap = JsonHelper.jsonObjectParser(data);
-        System.out.println("map对象:" + userMap.toString());
+        for(String key : userMap.keySet())
+            System.out.println(key + " " + userMap.get(key));
+//        System.out.println("map对象:" + userMap.toString());
         return true;
+    }
+
+    @PostMapping("/update/test2")
+    @ResponseBody
+    public boolean updateTest2(@RequestBody JSONObject data, @RequestParam("id")Long id) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+        StandardTaskTicketEntity ticket = selectTaskTicketByGid(id);
+        if(ticket == null) return false;
+        Map<String, Object> map = JsonHelper.jsonObjectParser(data);
+        PropertyDescriptor[] pd = Introspector.getBeanInfo(ticket.getClass()).getPropertyDescriptors();
+        for(PropertyDescriptor p : pd) {
+            String name = p.getName();
+            if (!name.equals("gid") && map.containsKey(name)) {
+                Method setter = p.getWriteMethod();
+                if (setter != null) {
+                    setter.invoke(ticket, map.get(p.getName()));
+                }
+            }
+        }
+        ticket = updateTaskTicketById(id, ticket);
+        System.out.println("update done with id:" + id);
+        return ticket != null;
+    }
+
+    private static String getType(Object a){
+        return a.getClass().toString();
     }
 
     // use this when you've got python3 environment rather than conda environment

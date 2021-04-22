@@ -79,22 +79,6 @@ public class StandardTaskTicketEntity {
     @Relationship(type = "任务单编制人", direction = OUTGOING)
     private Set<StaffEntity> missionTicketFounder = new HashSet<>();
 
-    public Set<StaffEntity> getMissionTicketFounder() {
-        return missionTicketFounder;
-    }
-
-    public void setMissionTicketFounder(Set<StaffEntity> missionTicketFounder) {
-        this.missionTicketFounder = missionTicketFounder;
-    }
-
-    public Set<RouteLocationEntity> getRouteLocation() {
-        return routeLocation;
-    }
-
-    public void setRouteLocation(Set<RouteLocationEntity> routeLocation) {
-        this.routeLocation = routeLocation;
-    }
-
     public Long getGid() {
         return gid;
     }
@@ -213,5 +197,21 @@ public class StandardTaskTicketEntity {
 
     public void setTimeToEnd(String timeToEnd) {
         this.timeToEnd = timeToEnd;
+    }
+
+    public Set<RouteLocationEntity> getRouteLocation() {
+        return routeLocation;
+    }
+
+    public void setRouteLocation(Set<RouteLocationEntity> routeLocation) {
+        this.routeLocation = routeLocation;
+    }
+
+    public Set<StaffEntity> getMissionTicketFounder() {
+        return missionTicketFounder;
+    }
+
+    public void setMissionTicketFounder(Set<StaffEntity> missionTicketFounder) {
+        this.missionTicketFounder = missionTicketFounder;
     }
 }
