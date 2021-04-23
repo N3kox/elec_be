@@ -73,12 +73,12 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
             if (!name.equals("gid") && map.containsKey(name)) {
                 Method setter = p.getWriteMethod();
                 if (setter != null) {
-                    setter.invoke(ticket, map.get(p.getName()));
+                    setter.invoke(ticket, map.get(name));
                 }
             }
         }
         ticket = updateTaskTicketById(id, ticket);
-        System.out.println("update done with id:" + id);
+        System.out.println("update task ticket done with id:" + id);
         return ticket != null;
     }
 
