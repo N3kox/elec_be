@@ -82,9 +82,7 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return ticket != null;
     }
 
-    private static String getType(Object a){
-        return a.getClass().toString();
-    }
+
 
     // use this when you've got python3 environment rather than conda environment
     /*
@@ -92,6 +90,10 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
     void pytest() throws IOException, InterruptedException {
         PythonInvoker.testRunner();
     }
+
      */
+    private static String getType(Object a){
+        return a.getClass().toString();
+    }
 
 }
