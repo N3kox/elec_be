@@ -21,7 +21,7 @@ public class SourceController {
     @RequestMapping("/py_test")
     @ResponseBody
     public String pyTest() throws IOException, InterruptedException {
-       String res = PythonInvoker.anotherTestRunner();
+       String res = PythonInvoker.anaTest1();
        System.out.println(res);
        return res;
     }

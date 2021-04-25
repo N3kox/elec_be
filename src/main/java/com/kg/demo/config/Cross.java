@@ -21,5 +21,6 @@ public class Cross implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/source/term_json/**").addResourceLocations(Static.getTermJsonLocation());
+        registry.addResourceHandler("/source/py_test/**").addResourceLocations(Static.fgetPythonRuntimeLocation());
     }
 }
