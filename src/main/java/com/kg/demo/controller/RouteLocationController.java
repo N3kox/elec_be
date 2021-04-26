@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/route_location")
 public class RouteLocationController extends RouteLocationImpl {
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ResponseBody
     public boolean updateRouteLocation(@RequestBody JSONObject data, @RequestParam("id") Long id) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
         RouteLocationEntity route = selectRouteById(id);

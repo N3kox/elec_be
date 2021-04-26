@@ -40,4 +40,9 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
     public StandardTaskTicketEntity selectTaskTicketByGid(Long id) {
         return standardTaskTicketRepo.findByGid(id);
     }
+
+    @Override
+    public List<StandardTaskTicketEntity> selectAllTicket() {
+        return standardTaskTicketRepo.findAll();
+    }
 }

@@ -31,5 +31,5 @@ public interface StandardTaskTicketRepo extends Neo4jRepository<StandardTaskTick
             "n.timeToEnd = :#{#timeToEnd} return n")
     StandardTaskTicketEntity updateById(@Param("id")Long id, @Param("ticket")StandardTaskTicketEntity ticket);
     StandardTaskTicketEntity findByGid(Long id);
-
+    List<StandardTaskTicketEntity> findAll();
 }

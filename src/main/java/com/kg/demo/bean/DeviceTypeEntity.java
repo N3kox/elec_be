@@ -15,16 +15,15 @@ public class DeviceTypeEntity {
     @Property("类型编号")
     private String deviceTypeCode;
 
-    @Relationship(type = "设备类型", direction = Relationship.Direction.INCOMING)
-    private Set<DeviceEntity> devices = new HashSet<>();
-
-    public Set<DeviceEntity> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(Set<DeviceEntity> devices) {
-        this.devices = devices;
-    }
+//    @Relationship(type = "设备类型", direction = Relationship.Direction.INCOMING)
+//    private Set<DeviceEntity> devices = new HashSet<>();
+//    public Set<DeviceEntity> getDevices() {
+//        return devices;
+//    }
+//
+//    public void setDevices(Set<DeviceEntity> devices) {
+//        this.devices = devices;
+//    }
 
 
     public Long getGid() {

@@ -46,7 +46,6 @@ public class CompanyEntity {
     public Set<StaffEntity> getStaffEntities() {
         return staffEntities;
     }
-
     public void setStaffEntities(Set<StaffEntity> staffEntities) {
         this.staffEntities = staffEntities;
     }

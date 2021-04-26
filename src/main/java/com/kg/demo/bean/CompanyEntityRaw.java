@@ -5,12 +5,12 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 
-@Node("生产厂家")
-public class DeviceManufactorEntity {
+//@Node("运维商")
+public class CompanyEntityRaw {
     @Id
     @GeneratedValue
     private Long gid;
-    @Property("生产厂家")
+    @Property
     private String name;
 
     public Long getGid() {

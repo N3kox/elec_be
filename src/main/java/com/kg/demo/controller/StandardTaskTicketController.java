@@ -32,6 +32,12 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return null;
     }
 
+    @GetMapping("/all")
+    @ResponseBody
+    List<StandardTaskTicketEntity> getAllTicket(){
+        return selectAllTicket();
+    }
+
     @GetMapping("/first_code")
     @ResponseBody
     StandardTaskTicketEntity getTaskTicketByCode(@RequestParam("val") String code) {
@@ -51,7 +57,7 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return null;
     }
 
-    @PostMapping("/update/test")
+    @PutMapping("/update/test")
     @ResponseBody
     public boolean updateTest1(@RequestBody JSONObject data){
         Map<String, Object> userMap = JsonHelper.jsonObjectParser(data);
@@ -61,12 +67,13 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return true;
     }
 
-    @PostMapping("/update/test2")
+    @PutMapping("/update/test2")
     @ResponseBody
     public boolean updateTest2(@RequestBody JSONObject data, @RequestParam("id")Long id) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
         StandardTaskTicketEntity ticket = selectTaskTicketByGid(id);
         if(ticket == null) return false;
         Map<String, Object> map = JsonHelper.jsonObjectParser(data);
+        System.out.println("123");
         PropertyDescriptor[] pd = Introspector.getBeanInfo(ticket.getClass()).getPropertyDescriptors();
         for(PropertyDescriptor p : pd) {
             String name = p.getName();
