@@ -4,6 +4,11 @@ import com.kg.demo.bean.DeviceEntity;
 import com.kg.demo.impl.DeviceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,6 +27,23 @@ public class DeviceController extends DeviceImpl {
         return selectDeviceById(gid);
     }
 
+
+    // 获取device bean全部properties
+    @GetMapping("get_properties")
+    @ResponseBody
+    List<String> getDeviceProperties(){
+        List<String> res = new ArrayList<>();
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(DeviceEntity.class);
+            PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
+            for(PropertyDescriptor p : pd){
+                res.add(p.getName());
+            }
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 
 
 }

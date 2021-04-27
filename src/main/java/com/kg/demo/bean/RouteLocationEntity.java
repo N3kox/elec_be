@@ -9,7 +9,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 public class RouteLocationEntity {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long gid;
     @Property("变电站id")
     private String tranformerID;
     @Property("变电站名称")
@@ -19,12 +19,12 @@ public class RouteLocationEntity {
     @Property("站线名称")
     private String nameAno;
 
-    public Long getId() {
-        return id;
+    public Long getGid() {
+        return gid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long gid) {
+        this.gid = gid;
     }
 
     public String getTranformerID() {

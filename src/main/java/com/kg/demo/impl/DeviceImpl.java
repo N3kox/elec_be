@@ -29,7 +29,7 @@ public class DeviceImpl implements DeviceService {
     public List<DeviceEntity> selectTop() {
         List<DeviceEntity> found = deviceRepo.findAll();
         List<DeviceEntity> res = new ArrayList<>();
-        for(int i = 0; i < found.size() && i < 100; i++){
+        for(int i = 0; i < found.size() && i < 50; i++){
             res.add(found.get(i));
         }
         return res;
