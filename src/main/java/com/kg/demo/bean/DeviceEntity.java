@@ -43,7 +43,7 @@ public class DeviceEntity {
     @Property("运行编号")
     private String workingIdentifier;
     @Property("电压等级代码")
-    private float voltageLevelCode;
+    private String voltageLevelCode;
     @Property("设备状态")
     private String deviceStatus;
     @Property("相数")
@@ -202,11 +202,11 @@ public class DeviceEntity {
         this.workingIdentifier = workingIdentifier;
     }
 
-    public float getVoltageLevelCode() {
+    public String getVoltageLevelCode() {
         return voltageLevelCode;
     }
 
-    public void setVoltageLevelCode(float voltageLevelCode) {
+    public void setVoltageLevelCode(String voltageLevelCode) {
         this.voltageLevelCode = voltageLevelCode;
     }
 
@@ -321,4 +321,5 @@ public class DeviceEntity {
     public void setDeviceTypeCodeEntities(Set<DeviceTypeCodeEntity> deviceTypeCodeEntities) {
         this.deviceTypeCodeEntities = deviceTypeCodeEntities;
     }
+
 }

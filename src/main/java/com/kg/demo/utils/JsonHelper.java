@@ -1,5 +1,6 @@
 package com.kg.demo.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kg.demo.config.Static;
 import org.springframework.util.ResourceUtils;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class JsonHelper {
+    // parse JSONObject to map
     public static Map<String, Object> jsonObjectParser(JSONObject jsonObject){
         Map<String, Object> map = new HashMap<>();
         for(Map.Entry<String, Object> entry : jsonObject.entrySet()){
@@ -59,6 +61,7 @@ public class JsonHelper {
         return null;
     }
 
+    // 读取JSON文件
     private static String jsonFileReader(File file){
         Scanner sc = null;
         StringBuffer sb = new StringBuffer();
@@ -74,4 +77,15 @@ public class JsonHelper {
         }
         return sb.toString();
     }
+
+    // 获取搜索properties map
+    public static Map<String, String> getPropertiesKVMap(JSONArray data){
+        Map<String, String> m = new HashMap<>();
+        for(int i = 0; i < data.size(); i++){
+            JSONObject jo = data.getJSONObject(i);
+            m.put(jo.get("key").toString(), jo.get("val").toString());
+        }
+        return m;
+    }
+
 }
