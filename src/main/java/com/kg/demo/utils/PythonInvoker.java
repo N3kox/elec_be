@@ -5,6 +5,8 @@ import com.kg.demo.config.Static;
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.Buffer;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PythonInvoker implements Serializable {
     /**
@@ -31,7 +33,7 @@ public class PythonInvoker implements Serializable {
         Process process = Runtime.getRuntime().exec(Static.getAnacondaRunner("tf_idf"));
         BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while ((line = in.readLine()) != null) {
 //            System.out.println(line);
             sb.append(line);
@@ -48,28 +50,51 @@ public class PythonInvoker implements Serializable {
         try{
             rt = Runtime.getRuntime();
             process = rt.exec(Static.getAnacondaRunner("tf_idf"));
-            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(), "utf-8"));
-            BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream(), "utf-8"));
-            StringBuilder sb = new StringBuilder();
-            StringBuilder sberr = new StringBuilder();
-            String line = null, linerr = null;
-            while((line = in.readLine()) != null){
-                sb.append(line);
-                sb.append("\n");
-            }
-            while((linerr = err.readLine()) != null){
-                sberr.append(linerr);
-                sberr.append("\n");
-            }
-            in.close();
-            err.close();
-            System.out.println(sb.toString());
-            System.out.println(sberr.toString());
-            return sb.toString();
+            return getString(process);
         } catch (IOException i){
             i.printStackTrace();
         }
         return null;
+    }
+
+    private static String getString(Process process) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(), "utf-8"));
+        BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream(), "utf-8"));
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sberr = new StringBuilder();
+        String line, linerr;
+        while((line = in.readLine()) != null){
+            sb.append(line);
+            sb.append("\n");
+        }
+        while((linerr = err.readLine()) != null){
+            sberr.append(linerr);
+            sberr.append("\n");
+        }
+        in.close();
+        err.close();
+        System.out.println(sb);
+        System.out.println(sberr);
+        return sb.toString();
+    }
+
+    public static String myInvoke(Map<String, String> map){
+        Runtime rt;
+        Process process;
+        try{
+            rt = Runtime.getRuntime();
+            process = rt.exec(Static.getArgsAnacondaRunner(map));
+            return getString(process);
+        } catch (IOException i){
+            i.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String termSearchInterface(String term){
+        Map<String, String> map = new HashMap<>();
+        map.put("tf-idf", term);
+        return myInvoke(map);
     }
 
 }

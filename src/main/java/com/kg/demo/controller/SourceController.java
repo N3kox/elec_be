@@ -5,6 +5,7 @@ import com.kg.demo.utils.PythonInvoker;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/source")
@@ -22,5 +23,12 @@ public class SourceController {
        System.out.println(res);
        return res;
     }
+
+    @PostMapping("/term_search")
+    @ResponseBody
+    public String termSearch(@RequestBody String term){
+        return PythonInvoker.termSearchInterface(term);
+    }
+
 
 }
