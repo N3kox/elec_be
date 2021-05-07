@@ -1,14 +1,23 @@
 package com.kg.demo.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.kg.demo.bean.StandardTaskTicketEntity;
 import com.kg.demo.repo.StandardTaskTicketRepo;
 import com.kg.demo.service.StandardTaskTicketService;
+import com.kg.demo.utils.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StandardTaskTicketImpl implements StandardTaskTicketService {
@@ -44,5 +53,31 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
     @Override
     public List<StandardTaskTicketEntity> selectAllTicket() {
         return standardTaskTicketRepo.findAll();
+    }
+
+    @Override
+    public List<StandardTaskTicketEntity> dynamicSelect(JSONArray data) {
+        Map<String, String> m = JsonHelper.getPropertiesKVMap(data);
+        try{
+            StandardTaskTicketEntity standardTaskTicketEntity = new StandardTaskTicketEntity();
+            for(PropertyDescriptor p : Introspector.getBeanInfo(standardTaskTicketEntity.getClass()).getPropertyDescriptors()){
+                String name = p.getName();
+                if(m.containsKey(name)){
+                    Method setter = p.getWriteMethod();
+                    if(setter != null)
+                        setter.invoke(standardTaskTicketEntity, m.get(name));
+                }
+            }
+            Example<StandardTaskTicketEntity> example = Example.of(standardTaskTicketEntity);
+            List<StandardTaskTicketEntity> res = standardTaskTicketRepo.findAll(example);
+            return res;
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

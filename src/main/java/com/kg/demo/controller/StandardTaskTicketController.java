@@ -1,16 +1,19 @@
 package com.kg.demo.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.kg.demo.bean.StandardTaskTicketEntity;
 import com.kg.demo.impl.StandardTaskTicketImpl;
 import com.kg.demo.utils.JsonHelper;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONObject;
 
+import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -89,16 +92,28 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return ticket != null;
     }
 
-
-
-    // use this when you've got python3 environment rather than conda environment
-    /*
-    @GetMapping("pytest")
-    void pytest() throws IOException, InterruptedException {
-        PythonInvoker.testRunner();
+    @GetMapping("get_properties")
+    @ResponseBody
+    List<String> getTicketProperties(){
+        List<String> res = new ArrayList<>();
+        try{
+            BeanInfo beanInfo = Introspector.getBeanInfo(StandardTaskTicketEntity.class);
+            PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
+            for(PropertyDescriptor p : pd){
+                res.add(p.getName());
+            }
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
-     */
+    @PostMapping("dynamic_search")
+    @ResponseBody
+    List<StandardTaskTicketEntity> getDynamicSearchResult(@RequestBody JSONArray data){
+        return dynamicSelect(data);
+    }
+
     private static String getType(Object a){
         return a.getClass().toString();
     }

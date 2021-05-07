@@ -1,7 +1,6 @@
 package com.kg.demo.impl;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.kg.demo.bean.DeviceEntity;
 import com.kg.demo.repo.DeviceRepo;
 import com.kg.demo.service.DeviceService;
@@ -13,7 +12,6 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

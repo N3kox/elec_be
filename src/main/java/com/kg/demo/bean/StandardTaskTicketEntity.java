@@ -15,6 +15,7 @@ public class StandardTaskTicketEntity {
 
     @Property("任务概述")
     private String descSummary;
+    public StandardTaskTicketEntity(){}
 
     public StandardTaskTicketEntity(Long gid, String descSummary, String descDetail, String elecStopRange, String location, String endingState, String belongingLocationName, String elecStop, String relatedToPlan, String eliminateId, String preparedTime, String preparedDepartment, String code, String timeToStart, String timeToEnd) {
         this.gid = gid;
