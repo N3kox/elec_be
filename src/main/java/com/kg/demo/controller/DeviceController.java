@@ -38,7 +38,11 @@ public class DeviceController extends DeviceImpl {
             BeanInfo beanInfo = Introspector.getBeanInfo(DeviceEntity.class);
             PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
             for(PropertyDescriptor p : pd){
-                res.add(p.getName());
+//                System.out.println(p.getPropertyType().toString());
+                if(p.getPropertyType().toString().equals("class java.lang.String")){
+//                    System.out.println(p.getPropertyType());
+                    res.add(p.getName());
+                }
             }
         } catch (IntrospectionException e) {
             e.printStackTrace();

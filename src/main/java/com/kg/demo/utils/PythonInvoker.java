@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PythonInvoker implements Serializable {
+
     /**
      * @throws IOException
      * @throws InterruptedException
@@ -73,7 +74,7 @@ public class PythonInvoker implements Serializable {
         }
         in.close();
         err.close();
-        System.out.println(sb);
+//        System.out.println(sb);
         System.out.println(sberr);
         return sb.toString();
     }
@@ -93,7 +94,13 @@ public class PythonInvoker implements Serializable {
 
     public static String termSearchInterface(String term){
         Map<String, String> map = new HashMap<>();
-        map.put("tf-idf", term);
+        map.put("term-search", term);
+        return myInvoke(map);
+    }
+
+    public static String termSearchExactInterface(String term){
+        Map<String, String> map = new HashMap<>();
+        map.put("term-search-exact", term);
         return myInvoke(map);
     }
 

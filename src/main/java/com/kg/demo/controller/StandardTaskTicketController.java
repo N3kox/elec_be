@@ -100,7 +100,8 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
             BeanInfo beanInfo = Introspector.getBeanInfo(StandardTaskTicketEntity.class);
             PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
             for(PropertyDescriptor p : pd){
-                res.add(p.getName());
+                if(p.getPropertyType().toString().equals("class java.lang.String"))
+                    res.add(p.getName());
             }
         } catch (IntrospectionException e) {
             e.printStackTrace();

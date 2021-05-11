@@ -64,7 +64,7 @@ public class JsonHelper {
     // 读取JSON文件
     private static String jsonFileReader(File file){
         Scanner sc = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
             sc = new Scanner(file, "utf-8");
             while(sc.hasNext())
