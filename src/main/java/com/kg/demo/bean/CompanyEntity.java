@@ -13,9 +13,6 @@ public class CompanyEntity {
     @Property("所属地市")
     private String name;
 
-//    @Relationship(type = "所属地市", direction = Relationship.Direction.INCOMING)
-//    private Set<DeviceEntity> deviceEntities = new HashSet<>();
-
     @Relationship(type = "就职", direction = Relationship.Direction.INCOMING)
     private Set<StaffEntity> staffEntities = new HashSet<>();
 

@@ -25,7 +25,7 @@ public class Static {
         StringBuilder sb = new StringBuilder(getAnacondaMainRunner());
         for(String key : map.keySet()){
             // TODO : other actions
-            if(key.equals("term-search") || key.equals("term-search-exact")){
+            if(key.equals("term-search") || key.equals("term-search-exact") || key.equals("solution-search")){
                 sb.append(" --action ").append(key).append(" --val ").append(map.get(key));
             }
         }

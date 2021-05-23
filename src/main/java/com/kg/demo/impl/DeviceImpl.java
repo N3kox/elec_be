@@ -59,11 +59,17 @@ public class DeviceImpl implements DeviceService {
             }
             // 利用example查询相似项目
             Example<DeviceEntity> example = Example.of(deviceEntity);
+            // "~ABC.*"
             List<DeviceEntity> res = deviceRepo.findAll(example);
-            return res;
+            return res.subList(0, 75);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 }
+// userid 登入时间戳 登出时间戳
+// 登出 > 登入
+// 1.同时在线人数,最多的值
+// 2.峰值持续多久
+// 秒

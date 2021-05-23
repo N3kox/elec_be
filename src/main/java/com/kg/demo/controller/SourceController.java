@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,11 +20,10 @@ public class SourceController {
 
     @GetMapping("/py_test")
     @ResponseBody
-    public String pyTest() throws IOException, InterruptedException {
+    public String pyTest() {
        return PythonInvoker.anaTest1();
     }
 
-    // TODO : 文本匹配搜索
     @PostMapping("/term_search")
     @ResponseBody
     public String termSearch(@RequestBody String term){
@@ -35,9 +33,7 @@ public class SourceController {
     @PostMapping("/term_search_exact")
     @ResponseBody
     public String termSearchExact(@RequestBody String term){
-        String res = PythonInvoker.termSearchExactInterface(term);
-        System.out.println(res);
-        return res;
+        return PythonInvoker.termSearchExactInterface(term);
     }
 
     @PostMapping("/csv_upload")
@@ -46,6 +42,7 @@ public class SourceController {
         String path = ResourceUtils.getURL(Static.fgetCsvUploadLogLocation()).getPath();
         int count = 0;
         for(MultipartFile f : files){
+            if(f.getOriginalFilename() == null) continue;
             String newFileName = type +  "_" + MD5Helper.strToMd5(f.getOriginalFilename()) + "_" + DateHelper.getCurrentTime() +  ".csv";
             String res = FileHelper.fileUpload(path, newFileName, f);
             if(res == null) count++;
@@ -55,6 +52,12 @@ public class SourceController {
         }
         System.out.println("Failed file count : " + count);
         return true;
+    }
+
+    @PostMapping("/solution_search")
+    @ResponseBody
+    public String solutionSearch(@RequestBody String problem){
+        return PythonInvoker.solutionSearchInterface(problem);
     }
 
 }

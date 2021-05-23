@@ -70,12 +70,8 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
             }
             Example<StandardTaskTicketEntity> example = Example.of(standardTaskTicketEntity);
             List<StandardTaskTicketEntity> res = standardTaskTicketRepo.findAll(example);
-            return res;
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            return res.subList(0, 75);
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
