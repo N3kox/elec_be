@@ -3,11 +3,13 @@ package com.kg.demo.config;
 import java.util.Map;
 
 public class Static {
-    public static String termJsonLocation = "/Users/mac/Desktop/毕设/数据/ws4mission/json/";
-    public static String csvUploadLogLocation = "/Users/mac/Desktop/毕设/数据/ws4mission/csvlog/";
-    public static String anacondaPython = "/opt/anaconda2/envs/py_bd/bin/python";
-    public static String pythonRuntimeLocation = "/Users/mac/PycharmProjects/webSpider4KG/webSpider/src/";
-
+    public static int maxReturn = 150;
+    private static String baseDir = "/Users/mac/Desktop/毕设/数据/ws4mission/";
+    private static String termJsonLocation = baseDir + "json/";
+    private static String csvUploadLogLocation = baseDir + "csvlog/";
+    private static String logLocation = baseDir + "logs/";
+    private static String anacondaPython = "/opt/anaconda2/envs/py_bd/bin/python";
+    private static String pythonRuntimeLocation = "/Users/mac/PycharmProjects/webSpider4KG/webSpider/src/";
     public static String getTermJsonLocation(){
         return "file:"+termJsonLocation;
     }
@@ -15,6 +17,12 @@ public class Static {
         return "file:"+pythonRuntimeLocation;
     }
     public static String fgetCsvUploadLogLocation(){ return "file:"+csvUploadLogLocation;}
+    public static String fgetLogLocation(){
+        return "file:" + logLocation;
+    }
+    public static String getAnacondaRunner(){
+        return anacondaPython;
+    }
     public static String getAnacondaRunner(String fileName){
         return anacondaPython + " " + pythonRuntimeLocation + fileName + ".py";
     }

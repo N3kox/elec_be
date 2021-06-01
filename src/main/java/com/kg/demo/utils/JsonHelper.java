@@ -8,8 +8,7 @@ import org.springframework.util.ResourceUtils;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class JsonHelper {
     public static String readJsonFile(String fileName){
         File file = null;
         try{
-            file = ResourceUtils.getFile(Static.termJsonLocation + fileName + ".json");
+            file = ResourceUtils.getFile(Static.getTermJsonLocation() + fileName + ".json");
 //            FileInputStream fin = new FileInputStream(file);
             String res = jsonFileReader(file);
             JSONObject jsonObject = JSONObject.parseObject(res);
@@ -59,6 +58,48 @@ public class JsonHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 读取LogFile，如果不存在则创建新Log文件
+     * @param fileName
+     * @return
+     */
+    public static JSONArray readLogFile(String fileName){
+        File file = null;
+        try{
+            String path = ResourceUtils.getURL(Static.fgetLogLocation() + fileName + ".json").getPath();
+            file = new File(path);
+            if(!file.exists()){
+                file.createNewFile();
+                OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
+                osw.write(new JSONArray().toJSONString());
+                osw.flush();
+                osw.close();
+            }
+            return JSONArray.parseArray(jsonFileReader(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 写入Log
+     * @param fileName 文件名
+     * @param log 记录内容
+     * @return 写入结果
+     */
+    public static boolean writeLogFile(String fileName, String log){
+        File file = null;
+        try{
+            String path = ResourceUtils.getURL(Static.fgetLogLocation() + fileName + ".json").getPath();
+            file = new File(path);
+            return jsonFileWriter(file, log);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // 读取JSON文件
@@ -76,6 +117,18 @@ public class JsonHelper {
                 sc.close();
         }
         return sb.toString();
+    }
+
+    private static boolean jsonFileWriter(File file, String str){
+        BufferedOutputStream bos = null;
+        try{
+            bos = new BufferedOutputStream(new FileOutputStream(file, false));
+            bos.write(str.getBytes());
+            bos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // 获取搜索properties map

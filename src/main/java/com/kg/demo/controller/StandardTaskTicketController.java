@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.kg.demo.bean.StandardTaskTicketEntity;
 import com.kg.demo.impl.StandardTaskTicketImpl;
 import com.kg.demo.utils.JsonHelper;
+import com.kg.demo.utils.LogRecord;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONObject;
 
@@ -14,6 +15,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,35 +62,49 @@ public class StandardTaskTicketController extends StandardTaskTicketImpl {
         return null;
     }
 
-    @PutMapping("/update/test")
-    @ResponseBody
-    public boolean updateTest1(@RequestBody JSONObject data){
-        Map<String, Object> userMap = JsonHelper.jsonObjectParser(data);
-        for(String key : userMap.keySet())
-            System.out.println(key + " " + userMap.get(key));
+//    @PutMapping("/update/test")
+//    @ResponseBody
+//    public boolean updateTest1(@RequestBody JSONObject data){
+//        Map<String, Object> userMap = JsonHelper.jsonObjectParser(data);
+//        for(String key : userMap.keySet())
+//            System.out.println(key + " " + userMap.get(key));
 //        System.out.println("map对象:" + userMap.toString());
-        return true;
-    }
+//        return true;
+//    }
 
-    @PutMapping("/update/test2")
+    /**
+     * 更新节点并记录log
+     * @param data 待更新属性map
+     * @param id node id
+     * @return 更新结果
+     * @throws IntrospectionException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    @PutMapping("/update")
     @ResponseBody
-    public boolean updateTest2(@RequestBody JSONObject data, @RequestParam("id")Long id) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+    public boolean updateTask(@RequestBody JSONObject data, @RequestParam("id")Long id) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
         StandardTaskTicketEntity ticket = selectTaskTicketByGid(id);
         if(ticket == null) return false;
         Map<String, Object> map = JsonHelper.jsonObjectParser(data);
-        System.out.println("123");
+        Map<String, Object> updateLog = new HashMap<>();
         PropertyDescriptor[] pd = Introspector.getBeanInfo(ticket.getClass()).getPropertyDescriptors();
         for(PropertyDescriptor p : pd) {
             String name = p.getName();
             if (!name.equals("gid") && map.containsKey(name)) {
                 Method setter = p.getWriteMethod();
+                Method getter = p.getReadMethod();
+                if(getter != null && !map.get(name).equals(getter.invoke(ticket).toString())){
+                    updateLog.put(name, getter.invoke(ticket).toString());
+                }
                 if (setter != null) {
                     setter.invoke(ticket, map.get(name));
                 }
             }
         }
         ticket = updateTaskTicketById(id, ticket);
-        System.out.println("update task ticket done with id:" + id);
+        LogRecord.appendLog(id, updateLog);
+//        System.out.println("update task ticket done with id:" + id);
         return ticket != null;
     }
 

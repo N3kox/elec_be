@@ -2,6 +2,7 @@ package com.kg.demo.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.kg.demo.bean.StandardTaskTicketEntity;
+import com.kg.demo.config.Static;
 import com.kg.demo.repo.StandardTaskTicketRepo;
 import com.kg.demo.service.StandardTaskTicketService;
 import com.kg.demo.utils.JsonHelper;
@@ -16,8 +17,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StandardTaskTicketImpl implements StandardTaskTicketService {
@@ -57,20 +57,31 @@ public class StandardTaskTicketImpl implements StandardTaskTicketService {
 
     @Override
     public List<StandardTaskTicketEntity> dynamicSelect(JSONArray data) {
-        Map<String, String> m = JsonHelper.getPropertiesKVMap(data);
+        List<StandardTaskTicketEntity> res = new ArrayList<>();
+        Set<Long> s = new HashSet<>();
         try{
-            StandardTaskTicketEntity standardTaskTicketEntity = new StandardTaskTicketEntity();
-            for(PropertyDescriptor p : Introspector.getBeanInfo(standardTaskTicketEntity.getClass()).getPropertyDescriptors()){
-                String name = p.getName();
-                if(m.containsKey(name)){
-                    Method setter = p.getWriteMethod();
-                    if(setter != null)
-                        setter.invoke(standardTaskTicketEntity, m.get(name));
+            for(int i = 0; i < data.size() && res.size() < Static.maxReturn; i++){
+                Map<String, String> m = JsonHelper.getPropertiesKVMap(data.getJSONArray(i));
+                StandardTaskTicketEntity standardTaskTicketEntity = new StandardTaskTicketEntity();
+                for(PropertyDescriptor p : Introspector.getBeanInfo(standardTaskTicketEntity.getClass()).getPropertyDescriptors()){
+                    String name = p.getName();
+                    if(m.containsKey(name)){
+                        Method setter = p.getWriteMethod();
+                        if(setter != null)
+                            setter.invoke(standardTaskTicketEntity, m.get(name));
+                    }
+                }
+                Example<StandardTaskTicketEntity> example = Example.of(standardTaskTicketEntity);
+                List<StandardTaskTicketEntity> searchResult = standardTaskTicketRepo.findAll(example);
+                for(int j = 0; j < searchResult.size() && res.size() < Static.maxReturn; j++){
+                    StandardTaskTicketEntity cur = searchResult.get(j);
+                    if(!s.contains(cur.getGid())){
+                        s.add(cur.getGid());
+                        res.add(cur);
+                    }
                 }
             }
-            Example<StandardTaskTicketEntity> example = Example.of(standardTaskTicketEntity);
-            List<StandardTaskTicketEntity> res = standardTaskTicketRepo.findAll(example);
-            return res.subList(0, 75);
+            return res.subList(0, Math.min(res.size(), Static.maxReturn));
         } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

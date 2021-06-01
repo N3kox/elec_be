@@ -60,4 +60,13 @@ public class SourceController {
         return PythonInvoker.solutionSearchInterface(problem);
     }
 
+    @PostMapping("/log")
+    @ResponseBody
+    public String getNodeLog(@RequestParam("id")Long id){
+        return LogRecord.readLog(id);
+//        String res = LogRecord.readLog(id);
+//        System.out.println(res);
+//        return res;
+    }
+
 }

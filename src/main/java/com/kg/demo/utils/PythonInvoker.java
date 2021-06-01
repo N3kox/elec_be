@@ -16,7 +16,7 @@ public class PythonInvoker implements Serializable {
      */
     public static String testRunner() throws IOException, InterruptedException{
 //        String exe = "python3";
-        String exe = Static.anacondaPython;
+        String exe = Static.getAnacondaRunner();
         String command = "/Users/mac/PycharmProjects/webSpider4KG/webSpider/src/interface.py";
         String a = "--new";
         String aa = "hello";
